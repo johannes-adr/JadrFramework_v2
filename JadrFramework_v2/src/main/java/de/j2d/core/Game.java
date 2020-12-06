@@ -155,7 +155,7 @@ public abstract class Game implements Runnable {
 		g = (Graphics2D) bs.getDrawGraphics();
 
 		// Clearing
-		//g.clearRect(0, 0, widht, height);
+		g.clearRect(0, 0, widht, height);
 		// dorendering
 		render(g);
 

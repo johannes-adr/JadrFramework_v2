@@ -51,7 +51,7 @@ public abstract class JadrGame extends Game{
 
 	@Override
 	protected void render(Graphics2D g) {
-		onPostRender(g);
+		onPreRender(g);
 		ArrayList<Element> onScreen = new ArrayList<Element>();
 		Element foc = cam.foc;
 		if(foc != null) {
