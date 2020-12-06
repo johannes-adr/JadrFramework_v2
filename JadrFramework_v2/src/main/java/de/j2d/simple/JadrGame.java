@@ -45,6 +45,22 @@ public abstract class JadrGame extends Game{
 		REMOVING_ELEMENTS.clear();
 		buildQuadTree();
 		for(Element e : GAME_ELEMENTS)if(e instanceof Entity)((Entity)e).act();
+		onPostUpdate();
+	}
+	
+
+	@Override
+	protected void render(Graphics2D g) {
+		onPostRender(g);
+		ArrayList<Element> onScreen = new ArrayList<Element>();
+		Element foc = cam.foc;
+		if(foc != null) {
+			onScreen.addAll(Arrays.asList(quadTree.getElementsAtLocation(foc.getX() - widht/2,foc.getY() - height/2, widht, height)));
+		}else {
+			onScreen.addAll(Arrays.asList(quadTree.getElementsAtLocation(0, 0, widht, height)));
+		}
+		if(!cam.render(g, onScreen))for(Element e : onScreen)e.render(g,e.getXRound(), e.getYRound());
+		onPostRender(g);
 	}
 	
 	protected abstract void onPostUpdate();
@@ -90,18 +106,8 @@ public abstract class JadrGame extends Game{
 		quadTree = QuadTree.build(GAME_ELEMENTS,quadTreeMaxObj, quadTreeMaxLevel, worldWith, worldHeight);
 	}
 
-	@Override
-	protected void render(Graphics2D g) {
-		ArrayList<Element> onScreen = new ArrayList<Element>();
-		Element foc = cam.foc;
-		if(foc != null) {
-			onScreen.addAll(Arrays.asList(quadTree.getElementsAtLocation(foc.getX() - widht/2,foc.getY() - height/2, widht, height)));
-		}else {
-			onScreen.addAll(Arrays.asList(quadTree.getElementsAtLocation(0, 0, widht, height)));
-		}
-		if(!cam.render(g, onScreen))for(Element e : onScreen)e.render(g,e.getXRound(), e.getYRound());
-	}
 	
 	protected abstract void onPostRender(Graphics2D g);
+	protected abstract void onPreRender(Graphics2D g);
 
 }
