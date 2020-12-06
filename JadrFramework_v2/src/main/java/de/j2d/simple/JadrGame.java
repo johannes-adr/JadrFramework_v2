@@ -38,6 +38,16 @@ public class JadrGame extends Game{
 		for(Element e : GAME_ELEMENTS)if(e instanceof Entity)((Entity)e).act();
 	}
 	
+	public void setCameraFocus(Element e) {
+		cam.foc = e;
+	}
+	
+	public Element getCameraFocus() {
+		return cam.foc;
+	}
+	
+	
+	
 	public void addElement(Element e) {
 		ADDING_ELEMENTS.add(e);
 	}
