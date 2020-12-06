@@ -10,7 +10,12 @@ public class JUtils {
 	private static Random r = new Random();
 
 	public static Vector2D getPointFromAngleWithSpeed(float degree, float speed) {
-		return getPointFromAngleWithSpeedWithRadians((float) Math.toRadians(degree), speed);
+		double x = Math.cos(Math.toRadians(degree));
+		double y = Math.sin(Math.toRadians(degree));
+
+		x += x * speed;
+		y += y * speed;
+		return new Vector2D(x, y);
 	}
 
 	public static Vector2D getPointFromAngleWithSpeedWithRadians(float radians, float speed) {

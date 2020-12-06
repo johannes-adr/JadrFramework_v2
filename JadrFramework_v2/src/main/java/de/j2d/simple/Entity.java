@@ -16,6 +16,10 @@ public abstract class Entity extends Element{
 	public abstract void act();
 	
 	public void move() {
+		move(speed);
+	}
+	
+	public void move(float speed) {
 		Vector2D change = JUtils.getPointFromAngleWithSpeed(rotation, speed);
 		x+=change.getX();
 		y+=change.getY();

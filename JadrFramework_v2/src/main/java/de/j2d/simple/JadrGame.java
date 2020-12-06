@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.management.modelmbean.RequiredModelMBean;
+
 import de.j2d.core.Element;
 import de.j2d.core.Game;
 import de.j2d.core.GameCam;
@@ -33,7 +35,9 @@ public class JadrGame extends Game{
 	@Override
 	protected void onUpdate() {
 		GAME_ELEMENTS.addAll(ADDING_ELEMENTS);
+		ADDING_ELEMENTS.clear();
 		GAME_ELEMENTS.removeAll(REMOVING_ELEMENTS);
+		REMOVING_ELEMENTS.clear();
 		buildQuadTree();
 		for(Element e : GAME_ELEMENTS)if(e instanceof Entity)((Entity)e).act();
 	}
