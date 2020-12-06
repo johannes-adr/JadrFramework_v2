@@ -12,7 +12,13 @@ import de.j2d.core.GameCam;
 import de.j2d.core.QuadTree;
 import de.j2d.utils.JadrList;
 
-public class JadrGame extends Game{
+
+/**
+ * 
+ * @author johnr
+ * Simple implementation of the Game class
+ */
+public abstract class JadrGame extends Game{
 
 	private final ArrayList<Element> GAME_ELEMENTS = new ArrayList<Element>();
 	
@@ -31,7 +37,6 @@ public class JadrGame extends Game{
 		worldWith = width;
 		
 	}
-
 	@Override
 	protected void onUpdate() {
 		GAME_ELEMENTS.addAll(ADDING_ELEMENTS);
@@ -42,24 +47,37 @@ public class JadrGame extends Game{
 		for(Element e : GAME_ELEMENTS)if(e instanceof Entity)((Entity)e).act();
 	}
 	
-	public void setCameraFocus(Element e) {
-		cam.foc = e;
+	protected abstract void onPostUpdate();
+	
+	public GameCam getGameCamera() {
+		return cam;
 	}
 	
-	public Element getCameraFocus() {
-		return cam.foc;
+	public void setQuadtreePreferences(int maxObjPerSection, int maxQuadTreeLevel, int worldWidht, int worldHeight){
+		this.quadTreeMaxLevel = maxQuadTreeLevel;
+		this.quadTreeMaxObj = maxObjPerSection;
+		this.worldHeight = worldHeight;
+		this.worldWith = worldWidht;
 	}
 	
 	
-	
+	/**
+	 * @param e
+	 * Add the given element e to the world (Can get called async)
+	 */
 	public void addElement(Element e) {
 		ADDING_ELEMENTS.add(e);
 	}
-	
+	/**
+	 * @return the current game tick QuadTree
+	 */
 	public QuadTree getCollisionTree() {
 		return quadTree;
 	}
-	
+	/**
+	 * @param e
+	 * remove the given element e from the world (Can get called async)
+	 */
 	public void removeElement(Element e) {
 		REMOVING_ELEMENTS.add(e);
 	}
@@ -83,5 +101,7 @@ public class JadrGame extends Game{
 		}
 		if(!cam.render(g, onScreen))for(Element e : onScreen)e.render(g,e.getXRound(), e.getYRound());
 	}
+	
+	protected abstract void onPostRender(Graphics2D g);
 
 }

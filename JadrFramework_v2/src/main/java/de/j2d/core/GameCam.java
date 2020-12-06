@@ -16,7 +16,10 @@ public class GameCam {
 	public GameCam(Game game) {
 		this.game = game;
 	}
-
+	/**
+	 * @param e (Element)
+	 * @return will return the location of the given Element e relative to the focused object (Location on Screen)
+	 */
 	public Point getPointOnScreen(Element e) {
 		if(foc == null) {
 			return new Point(e.getXRound(), e.getYRound());

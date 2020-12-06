@@ -4,6 +4,7 @@ package de.j2d.core;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class QuadTree {	
@@ -31,8 +32,16 @@ public class QuadTree {
 		this.h = h;
 		this.level = level;
 	}
-	
-	public static QuadTree build(ArrayList<? extends Element> elements, int maxObj,int maxxLevel, int w, int h) {
+	/**
+	 * 
+	 * @param elements -> List of elements which get inserted in the quad tree
+	 * @param maxObj -> How many elements should get in an area, until it get divided into four sub sections (8 is a good value)
+	 * @param maxxLevel -> Which should the maximum depth level of the quad tree (30 is a good value)
+	 * @param w -> Width of the root area
+	 * @param h -> Height of the root area
+	 * @return built quad tree
+	 */
+	public static QuadTree build(List<? extends Element> elements, int maxObj,int maxxLevel, int w, int h) {
 		QuadTree qt = new QuadTree(maxObj, 0,0, w, h, 0);
 		maxLevel = maxxLevel;
 		for (Element qte : elements) {
@@ -40,7 +49,12 @@ public class QuadTree {
 		}
 		return qt;
 	}
-
+	/**
+	 * !IMPORTANT! This method will only return the elements in the current area of its x and y value! 
+	 * The height and the width are not taken into account!
+	 * @param Element the tree will search for
+	 * @return Array of all elements in the given element area
+	 */
 	public Element[] getElementNeighbours(Element qte) {
 		if (hasSubNode) {
 			return subNodes[getElementSection(qte).value].getElementNeighbours(qte);
@@ -48,12 +62,24 @@ public class QuadTree {
 			return elements.toArray(new Element[elements.size()]);
 		}
 	}
+	/**
+	 * @param Element the tree will search for
+	 * @return Array of all elements the given element could intersect
+	 */
 	public Element[] getElementsAtLocation(Element e) {
 		return getElementsAtLocation(e.x, e.y, e.width, e.height);
 	}
+	/**
+	 * @param Element the tree will search for
+	 * @return Array of all elements the given element could intersect
+	 */
 	public Element[] getElementsAtLocation(Rectangle e) {
 		return getElementsAtLocation(e.x, e.y, e.width, e.height);
 	}
+	/**
+	 * @param Element the tree will search for
+	 * @return Array of all elements the given element could intersect
+	 */
 	public Element[] getElementsAtLocation(float x, float y, float w, float h) {
 		ArrayList<Element> es = new ArrayList<Element>(50);
 		addElementsfromSubLocation(x, y, w, h, es);
@@ -86,6 +112,11 @@ public class QuadTree {
 		}
 	}
 
+	
+	/**
+	 * This method will insert the given Element e in an built quad tree
+	 * @param e
+	 */
 	public void insert(Element e) {
 		if (hasSubNode) {
 			insertInSubNode(e);
@@ -138,7 +169,6 @@ public class QuadTree {
 		}
 
 	}
-	
 	@Deprecated
 	public void renderRelative(Graphics2D g, Game qg, int rX, int rY) {
 		qg.renderutils.renderRectangleBorder(g, x+rX, y+rY, w, h, 0.1f);

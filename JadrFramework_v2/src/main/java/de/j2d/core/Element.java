@@ -60,7 +60,10 @@ public class Element {
 	public void setHeight(float height) {
 		this.height = height;
 	}
-	
+	/**
+	 * @param other object of type Element
+	 * @return true if current object intersects with other element
+	 */
 	public boolean intersecting(Element other) {
 		return(this.x < other.x + other.width &&
 				this.x + this.width > other.x &&
