@@ -20,6 +20,7 @@ public class QuadTree {
 	private int level;
 	private boolean hasSubNode = false;
 	private ArrayList<Element> elements;
+	private ArrayList<Element> ignoringElements;
 
 	private QuadTree[] subNodes;
 
@@ -32,8 +33,15 @@ public class QuadTree {
 		this.h = h;
 		this.level = level;
 	}
+	
+	public void ignoreElement(Element e) {
+		if(ignoringElements == null) {
+			ignoringElements = new ArrayList<Element>();
+		}
+		ignoringElements.add(e);
+	}
+	
 	/**
-	 * 
 	 * @param elements -> List of elements which get inserted in the quad tree
 	 * @param maxObj -> How many elements should get in an area, until it get divided into four sub sections (8 is a good value)
 	 * @param maxxLevel -> Which should the maximum depth level of the quad tree (30 is a good value)
@@ -55,6 +63,7 @@ public class QuadTree {
 	 * @param Element the tree will search for
 	 * @return Array of all elements in the given element area
 	 */
+	@Deprecated
 	public Element[] getElementNeighbours(Element qte) {
 		if (hasSubNode) {
 			return subNodes[getElementSection(qte).value].getElementNeighbours(qte);
@@ -83,6 +92,9 @@ public class QuadTree {
 	public Element[] getElementsAtLocation(float x, float y, float w, float h) {
 		ArrayList<Element> es = new ArrayList<Element>(50);
 		addElementsfromSubLocation(x, y, w, h, es);
+		if(ignoringElements!=null) {
+			es.removeAll(ignoringElements);
+		}
 		return es.toArray(new Element[es.size()]);
 	}
 	

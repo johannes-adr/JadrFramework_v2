@@ -39,14 +39,12 @@ public abstract class JadrGame extends Game{
 	}
 	@Override
 	protected void onUpdate() {
-		GAME_ELEMENTS.addAll(ADDING_ELEMENTS);
-		ADDING_ELEMENTS.clear();
-		GAME_ELEMENTS.removeAll(REMOVING_ELEMENTS);
-		REMOVING_ELEMENTS.clear();
-		buildQuadTree();
+		build();
 		for(Element e : GAME_ELEMENTS)if(e instanceof Entity)((Entity)e).act();
 		onPostUpdate();
 	}
+	
+	
 	
 
 	@Override
@@ -63,7 +61,7 @@ public abstract class JadrGame extends Game{
 		onPostRender(g);
 	}
 	
-	protected abstract void onPostUpdate();
+	
 	
 	public GameCam getGameCamera() {
 		return cam;
@@ -99,14 +97,18 @@ public abstract class JadrGame extends Game{
 	}
 	@Override
 	protected void onStart() {
-		buildQuadTree();
+		build();
 	}
 	
-	private void buildQuadTree() {
+	private void build() {
+		GAME_ELEMENTS.addAll(ADDING_ELEMENTS);
+		ADDING_ELEMENTS.clear();
+		GAME_ELEMENTS.removeAll(REMOVING_ELEMENTS);
+		REMOVING_ELEMENTS.clear();
 		quadTree = QuadTree.build(GAME_ELEMENTS,quadTreeMaxObj, quadTreeMaxLevel, worldWith, worldHeight);
 	}
 
-	
+	protected abstract void onPostUpdate();
 	protected abstract void onPostRender(Graphics2D g);
 	protected abstract void onPreRender(Graphics2D g);
 

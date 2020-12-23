@@ -4,9 +4,10 @@ package de.j2d.core;
 import java.awt.Graphics2D;
 
 public class Element {
-	protected float x, y, width, height;
+	protected float x, y;
+	protected int width, height;
 
-	public Element(float x, float y, float width, float height) {
+	public Element(float x, float y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -29,20 +30,12 @@ public class Element {
 		return Math.round(y);
 	}
 
-	public float getWidht() {
+	public int getWidth() {
 		return width;
 	}
-	
-	public int getWidthRound() {
-		return Math.round(width);
-	}
 
-	public float getHeight() {
+	public int getHeight() {
 		return height;
-	}
-	
-	public int getHeightRound() {
-		return Math.round(height);
 	}
 
 	public void setX(float x) {
@@ -53,11 +46,11 @@ public class Element {
 		this.y = y;
 	}
 
-	public void setWidht(float widht) {
+	public void setWidht(int widht) {
 		this.width = widht;
 	}
 
-	public void setHeight(float height) {
+	public void setHeight(int height) {
 		this.height = height;
 	}
 	/**
@@ -71,6 +64,6 @@ public class Element {
 		        this.y + this.height > other.y);
 	}
 
-	public void render(Graphics2D g, int x, int y) {g.fillRect(x, y, getWidthRound(), getHeightRound());}
+	public void render(Graphics2D g, int x, int y) {g.fillRect(x, y, getWidth(), getHeight());}
 
 }

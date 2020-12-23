@@ -1,22 +1,31 @@
 package de.j2d.utils;
 
 public class Vector2D {
-	private double x;
-	private double y;
-	public Vector2D(double x, double y) {
+	private float x = 0;
+	private float y = 0;
+	public Vector2D(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
-	public double getX() {
+	
+	public Vector2D() {}
+	
+	public float getX() {
 		return x;
 	}
-	public double getY() {
+	public int getXint() {
+		return (int)x;
+	}
+	public int getYint() {
+		return (int)y;
+	}
+	public float getY() {
 		return y;
 	}
-	public void setX(double x) {
+	public void setX(float x) {
 		this.x = x;
 	}
-	public void setY(double y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 }

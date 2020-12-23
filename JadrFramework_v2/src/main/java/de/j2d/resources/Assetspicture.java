@@ -1,5 +1,6 @@
 package de.j2d.resources;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +29,10 @@ public class Assetspicture {
 
 	public Assetspicture setSize(int width, int height) {
 		if (img != null) {
-			img.getData().getBounds().setBounds(0, 0, width, height);
+			Image resultingImage = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		    BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		    outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
+		    img = outputImage;
 		}
 
 		return this;

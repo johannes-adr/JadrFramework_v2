@@ -24,8 +24,8 @@ import javax.swing.JFrame;
 
 public abstract class Game implements Runnable {
 
-	public static final double SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
-			SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	public static final int SCREEN_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
+			SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
 	public int FPS = 60, widht, height;
 	private long maxLoopTime = 1000 / FPS;
@@ -68,6 +68,9 @@ public abstract class Game implements Runnable {
 
 	public boolean isKeyPressed(char c) {
 		return frame.activeKeys.contains(c);
+	}
+	public boolean isKeyPressed(String s) {
+		return frame.activeKeys.contains(s.toCharArray()[0]);
 	}
 
 	/**
@@ -189,7 +192,6 @@ public abstract class Game implements Runnable {
 		public static final int MOUSE_LEFT = 1, MOUSE_RIGHT = 3;
 
 		public Window(String title, int width, int height) {
-
 			frame.setVisible(true);
 			frame.setSize(width, height);
 			frame.setTitle(title);

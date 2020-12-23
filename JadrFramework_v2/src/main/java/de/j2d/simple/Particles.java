@@ -46,7 +46,7 @@ public class Particles {
 				jdr.removeElement(this);
 				return;
 			}
-			Vector2D change = JUtils.getPointFromAngleWithSpeed(angle, getSpeed());
+			Vector2D change = JUtils.Trigonometry.getPointFromAngleWithSpeed(angle, getSpeed());
 			x+=change.getX();
 			y+=change.getY();
 		}

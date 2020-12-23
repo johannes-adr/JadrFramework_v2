@@ -9,7 +9,7 @@ public abstract class Entity extends Element{
 	
 	private float rotation = 0;
 	private float speed = 5;
-	public Entity(float x, float y, float width, float height) {
+	public Entity(float x, float y, int width, int height) {
 		super(x, y, width, height);
 	}
 	
@@ -29,7 +29,7 @@ public abstract class Entity extends Element{
      * @param speed -> how fast should the object move
      */
 	public void move(float speed) {
-		Vector2D change = JUtils.getPointFromAngleWithSpeed(rotation, speed);
+		Vector2D change = JUtils.Trigonometry.getPointFromAngleWithSpeed(rotation, speed);
 		x+=change.getX();
 		y+=change.getY();
 	}
@@ -58,6 +58,12 @@ public abstract class Entity extends Element{
 	 * @return the current object rotation in degrees (0 - 360)
 	 */
 	public float getRotation() {
+		if(rotation < 0) {
+			rotation = 360+rotation;
+		}else if(rotation > 360) {
+			rotation = 360-rotation;
+		}
+		
 		return rotation;
 	}
 
