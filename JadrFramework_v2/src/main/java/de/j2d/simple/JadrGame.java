@@ -10,6 +10,7 @@ import de.j2d.core.Element;
 import de.j2d.core.Game;
 import de.j2d.core.GameCam;
 import de.j2d.core.QuadTree;
+import de.j2d.resources.AnimatedSprite;
 import de.j2d.utils.JadrList;
 
 
@@ -35,7 +36,7 @@ public abstract class JadrGame extends Game{
 		cam = new GameCam(this);
 		worldHeight = height;
 		worldWith = width;
-		
+		AnimatedSprite.setScheduler(SCHEDULER);
 	}
 	@Override
 	protected void onUpdate() {
