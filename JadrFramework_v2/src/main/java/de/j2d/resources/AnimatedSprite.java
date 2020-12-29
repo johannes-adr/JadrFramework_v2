@@ -15,7 +15,13 @@ public class AnimatedSprite{
 
 	public AnimatedSprite(Spritesheet s, long changeSpeed) {
 		this.s = s;
-		scheduler.scheduleAtFixedRate( ()->update() , changeSpeed, changeSpeed, TimeUnit.MILLISECONDS);
+		scheduler.scheduleAtFixedRate( new Runnable() {
+			
+			public void run() {
+				update();
+			}
+		} , changeSpeed, changeSpeed, TimeUnit.MILLISECONDS);
+		
 		img = s.getFrame(0);
 	}
 	

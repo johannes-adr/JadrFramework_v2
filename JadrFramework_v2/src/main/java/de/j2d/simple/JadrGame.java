@@ -100,8 +100,8 @@ public abstract class JadrGame extends Game {
 	 * Sort all game elements by their rendering layers
 	 */
 	public void sortElements() {
-		HashMap<Integer, ArrayList<Element>> layerMap = new HashMap<>();
-		ArrayList<Element> newElementList = new ArrayList<>(GAME_ELEMENTS.size());
+		HashMap<Integer, ArrayList<Element>> layerMap = new HashMap<Integer, ArrayList<Element>>();
+		ArrayList<Element> newElementList = new ArrayList<Element>(GAME_ELEMENTS.size());
 		for (Element e : GAME_ELEMENTS) {
 			int layer = 0;
 
@@ -109,7 +109,7 @@ public abstract class JadrGame extends Game {
 				layer = ((RenderingLayer) e).getLayer();
 
 			if (!layerMap.containsKey(layer))
-				layerMap.put(layer, new ArrayList<>());
+				layerMap.put(layer, new ArrayList<Element>());
 			layerMap.get(layer).add(e);
 		}
 
