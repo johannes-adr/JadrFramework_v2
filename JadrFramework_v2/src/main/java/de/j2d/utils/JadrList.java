@@ -3,15 +3,10 @@ package de.j2d.utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 public class JadrList<T> extends ArrayList<T>{
 	private static final long serialVersionUID = 1L;
-	private JadrList<T> thislist;
-	public JadrList() {
-		thislist = this;
-	}
+
 	
 	@Override
 	public Iterator<T> iterator() {

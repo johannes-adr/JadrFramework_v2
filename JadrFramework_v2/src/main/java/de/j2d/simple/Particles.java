@@ -8,9 +8,7 @@ import de.j2d.JUtils;
 import de.j2d.utils.Vector2D;
 
 public class Particles {
-	private JadrGame jdr;
 	public Particles(float x, float y,int minLifeTime, int maxlifeTime, int size, JadrGame zr, int amount, Color c) {
-			this.jdr = zr;
 			float angle = 360;
 			float minusAngle = 360/(float)amount;
 			int lamount = amount;

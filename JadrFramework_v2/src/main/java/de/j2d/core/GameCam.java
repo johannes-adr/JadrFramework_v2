@@ -66,12 +66,10 @@ public class GameCam {
 	}
 
 	public boolean render(Graphics2D g, List<? extends Element> elements) {
-		int rendered = 0;
 		if (foc != null) {
 			int gjfocX = Math.round(game.widht / 2 - foc.getX() - foc.width / 2);
 			int gjfocY = Math.round(game.height / 2 - foc.getY() - foc.height / 2);
 			for (Element e : elements) {
-				rendered++;
 				if (e.equals(foc)) {
 					foc.render(g, game.widht / 2 - foc.getWidth() / 2, game.height / 2 - foc.getHeight() / 2);
 					continue;

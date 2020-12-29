@@ -6,12 +6,21 @@ import java.awt.Graphics2D;
 public class Element {
 	protected float x, y;
 	protected int width, height;
+	protected boolean visible = true;
 
 	public Element(float x, float y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+	}
+	
+	public boolean isVisible() {
+		return visible;
+	}
+	
+	public void setVisible(boolean v) {
+		this.visible = v;
 	}
 
 	public float getX() {
