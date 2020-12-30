@@ -19,6 +19,7 @@ import de.j2d.utils.JadrList;
 public abstract class JadrGame extends Game {
 
 	private final ArrayList<Element> GAME_ELEMENTS = new ArrayList<Element>();
+	private final ArrayList<Element> COLLIDING_ELEMENTS = new ArrayList<Element>();
 
 	private final ArrayList<Element> REMOVING_ELEMENTS = new JadrList<Element>();
 	private final ArrayList<Element> ADDING_ELEMENTS = new JadrList<Element>();
@@ -26,7 +27,7 @@ public abstract class JadrGame extends Game {
 	private final GameCam cam;
 	private QuadTree quadTree;
 
-	private int quadTreeMaxObj = 8, quadTreeMaxLevel = 30, worldWith, worldHeight;
+	protected int quadTreeMaxObj = 8, quadTreeMaxLevel = 30, worldWith, worldHeight;
 
 	public JadrGame(String title, int width, int height) {
 		super(title, width, height);
@@ -50,14 +51,14 @@ public abstract class JadrGame extends Game {
 		onPreRender(g);
 		ArrayList<Element> onScreen = new ArrayList<Element>();
 		Element foc = cam.foc;
-		if (foc != null) {
-			onScreen.addAll(Arrays.asList(
-					quadTree.getElementsAtLocation(foc.getX() - widht / 2, foc.getY() - height / 2, widht, height)));
-		} else {
-			onScreen.addAll(Arrays.asList(quadTree.getElementsAtLocation(0, 0, widht, height)));
-		}
-		if (!cam.render(g, onScreen))
-			for (Element e : onScreen) {
+//		if (foc != null) {
+//			onScreen.addAll(Arrays.asList(
+//					quadTree.getElementsAtLocation(foc.getX() - widht / 2, foc.getY() - height / 2, widht, height)));
+//		} else {
+//			onScreen.addAll(Arrays.asList(quadTree.getElementsAtLocation(0, 0, widht, height)));
+//		}
+		if (!cam.render(g, GAME_ELEMENTS))
+			for (Element e : GAME_ELEMENTS) {
 				if(e.isVisible())e.render(g, e.getXRound(), e.getYRound());
 			}
 				
@@ -78,8 +79,9 @@ public abstract class JadrGame extends Game {
 	/**
 	 * @param e Add the given element e to the world (Can get called async)
 	 */
-	public void addElement(Element e) {
+	public void addElement(Element e, boolean hasCollision) {
 		ADDING_ELEMENTS.add(e);
+		if(hasCollision)COLLIDING_ELEMENTS.add(e);
 	}
 
 	/**
@@ -94,6 +96,7 @@ public abstract class JadrGame extends Game {
 	 */
 	public void removeElement(Element e) {
 		REMOVING_ELEMENTS.add(e);
+		COLLIDING_ELEMENTS.remove(e);
 	}
 
 	/**
@@ -144,7 +147,7 @@ public abstract class JadrGame extends Game {
 			REMOVING_ELEMENTS.clear();
 			sortElements();
 		}
-		quadTree = QuadTree.build(GAME_ELEMENTS, quadTreeMaxObj, quadTreeMaxLevel, worldWith, worldHeight);
+		quadTree = QuadTree.build(COLLIDING_ELEMENTS, quadTreeMaxObj, quadTreeMaxLevel, worldWith, worldHeight);
 	}
 
 	protected abstract void onPostUpdate();

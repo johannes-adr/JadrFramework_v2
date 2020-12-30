@@ -14,7 +14,7 @@ public class Particles {
 			int lamount = amount;
 			for(;lamount > 0;lamount--) {
 				angle-=minusAngle;
-				zr.addElement(new Particle(x, y, size, angle,c, System.currentTimeMillis() +minLifeTime+ JUtils.random().nextInt(maxlifeTime-minLifeTime), zr));
+				zr.addElement(new Particle(x, y, size, angle,c, System.currentTimeMillis() +minLifeTime+ JUtils.random().nextInt(maxlifeTime-minLifeTime), zr), true);
 			}
 	}
 	public static class Particle extends Entity{

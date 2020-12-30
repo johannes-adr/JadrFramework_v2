@@ -8,19 +8,27 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
-public class Assetspicture {
+public class Assetspicture implements JadrImage{
 	private BufferedImage img;
-
+	private String path;
+	
 	public Assetspicture(String path) {
+		
 		if (path == null) {
 			return;
 		}
+		this.path = path;
 		try {
 			this.img = ImageIO.read(new File("assets/" + path)); 
 
 		} catch (IOException e) {
-			System.out.println("Error loading Image: assets/" + path);
+			System.err.println("Error loading Image: assets/" + path);
 		} 
+	}
+	
+	public Assetspicture scale(float f) {
+		setSize((int)(img.getWidth()*f), (int)(img.getHeight()*f));
+		return this;
 	}
 
 	public BufferedImage getImage() {
@@ -41,6 +49,8 @@ public class Assetspicture {
 	public void setImage(BufferedImage img) {
 		this.img = img;
 	}
+	
+	
 
 	public int getWidth() {
 		return img.getWidth();
@@ -48,5 +58,10 @@ public class Assetspicture {
 
 	public int getHeight() {
 		return img.getHeight();
+	}
+	
+	@Override
+	public String toString() {
+		return path;
 	}
 }

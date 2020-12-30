@@ -28,7 +28,7 @@ public class Element {
 	}
 	
 	public int getXRound() {
-		return Math.round(x);
+		return (int)x;
 	}
 
 	public float getY() {
@@ -36,7 +36,7 @@ public class Element {
 	}
 	
 	public int getYRound() {
-		return Math.round(y);
+		return (int)y;
 	}
 
 	public int getWidth() {

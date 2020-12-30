@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class AnimatedSprite{
+public class AnimatedSprite implements JadrImage{
 	private static ScheduledExecutorService scheduler;
 	
 	private BufferedImage img;
@@ -40,6 +40,10 @@ public class AnimatedSprite{
 	
 	public BufferedImage getCurrentImage() {
 		return img;
+	}
+
+	public BufferedImage getImage() {
+		return getCurrentImage();
 	}
 
 
