@@ -19,10 +19,11 @@ Simple pure java game framework
 <dependency>
 	<groupId>com.github.johannes-adr</groupId>
 	<artifactId>JadrFramework_v2</artifactId>
-	<version>faa82eeb77</version>
+	<version>CHANGE_VERSION</version>
 </dependency>
 ```
-
+replace CHANGE_VERSION with:
+[![](https://jitpack.io/v/johannes-adr/JadrFramework_v2.svg)](https://jitpack.io/#johannes-adr/JadrFramework_v2)
 
 ## Example
 
